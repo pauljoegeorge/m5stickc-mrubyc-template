@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/queue.h"
 #include "driver/gpio.h"
 #include "esp_system.h"
 #include "esp_log.h"
@@ -15,38 +12,10 @@
 #include "mrubyc.h"
 #include "models/greet.h"
 #include "loops/master.h"
-/**
-
- * Brief:
- * This test code shows how to configure gpio and how to use gpio interrupt.
- *
- * GPIO status:
- * GPIO18: output
- * GPIO19: output
- * GPIO4:  input, pulled up, interrupt from rising edge and falling edge
- * GPIO5:  input, pulled up, interrupt from rising edge.
- *
- * Test:
- * Connect GPIO18 with GPIO4
- * Connect GPIO19 with GPIO5
- * Generate pulses on GPIO18/19, that triggers interrupt on GPIO4/5
- *
- */
-
 
 #define MEMORY_SIZE (1024*40)
 
 static uint8_t memory_pool[MEMORY_SIZE];
-
-#define GPIO_OUTPUT_IO_0    26
-// #define GPIO_OUTPUT_IO_1    19
-#define GPIO_OUTPUT_PIN_SEL  ((1ULL<<GPIO_OUTPUT_IO_0))
-#define GPIO_INPUT_IO_0     36
-// #define GPIO_INPUT_IO_1     5
-#define GPIO_INPUT_PIN_SEL  ((1ULL<<GPIO_INPUT_IO_0))
-#define ESP_INTR_FLAG_DEFAULT 0
-
-static xQueueHandle gpio_evt_queue = NULL;
 
 //================================================================
 /*! DEBUG PRINT
@@ -84,6 +53,7 @@ static void c_debugprint(struct VM *vm, mrbc_value v[], int argc){
 
 void app_main(void)
 {
+  // FOR DISPLAY >>>M5 StickC<<<
     M5Init();
     font_rotate = 0;
     text_wrap = 0;
