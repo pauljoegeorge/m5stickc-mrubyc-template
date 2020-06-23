@@ -75,7 +75,7 @@ void app_main(void)
     mrbc_define_method(0, mrbc_class_object, "debugprint", c_debugprint);
     mrbc_define_method(0, mrbc_class_object, "button_a_pressed?", c_button_a_pressed);
     mrbc_define_method(0, mrbc_class_object, "button_b_pressed?", c_button_b_pressed);
-    mrbc_define_method(0, mrbc_class_object, "puts_tft", c_tft_fill);
+    mrbc_define_method(0, mrbc_class_object, "puts_color", c_tft_fill);
     mrbc_create_task(greet, 0);
     mrbc_create_task(master, 0);
     mrbc_run();

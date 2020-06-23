@@ -13,7 +13,7 @@ void c_tft_fill(mrb_vm *vm, mrb_value *v, int argc) {
   int y = GET_INT_ARG(2);
   int w = GET_INT_ARG(3);
   int h = GET_INT_ARG(4);
-  unsigned char *color = GET_STRING_ARG(5);
+  unsigned char *read_color = GET_STRING_ARG(5);
   char* color = (char *) read_color;
   if(strcmp(color, "RED") == 0){
     bg_color = TFT_RED;
