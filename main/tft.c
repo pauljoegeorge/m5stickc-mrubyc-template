@@ -19,6 +19,8 @@ void c_tft_fill(mrb_vm *vm, mrb_value *v, int argc) {
     bg_color = TFT_RED;
   }else if(strcmp(color, "GREEN") == 0){
     bg_color = TFT_GREEN;
+  }else if(strcmp(color, "BLUE") == 0){
+    bg_color = TFT_BLUE;
   }else{
     bg_color = TFT_BLACK;
   }
