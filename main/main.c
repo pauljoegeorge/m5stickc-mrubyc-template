@@ -10,6 +10,8 @@
 #include "wire.h"
 #include "AXP192.h"
 #include "mrubyc.h"
+#include "button.h"
+#include "tft.h"
 #include "models/greet.h"
 #include "loops/master.h"
 #include "models/speaker.h"
@@ -17,7 +19,6 @@
 #define MEMORY_SIZE (1024*40)
 
 static uint8_t memory_pool[MEMORY_SIZE];
-
 //================================================================
 /*! DEBUG PRINT
 */
@@ -80,11 +81,15 @@ void app_main(void)
 
     TFT_print(">>>M5 StickC<<<", CENTER, 0);
     vTaskDelay(500 / portTICK_PERIOD_MS);
-
     nvs_flash_init();
+    esp_event_handler_register_with(event_loop, BUTTON_A_EVENT_BASE, BUTTON_PRESSED_EVENT, buttonEvent, NULL);
+    esp_event_handler_register_with(event_loop, BUTTON_B_EVENT_BASE, BUTTON_PRESSED_EVENT, buttonEvent, NULL);
     mrbc_init(memory_pool, MEMORY_SIZE);
     mrbc_define_method(0, mrbc_class_object, "debugprint", c_debugprint);
     
+    mrbc_define_method(0, mrbc_class_object, "button_a_pressed?", c_button_a_pressed);
+    mrbc_define_method(0, mrbc_class_object, "button_b_pressed?", c_button_b_pressed);
+    mrbc_define_method(0, mrbc_class_object, "puts_color", c_tft_fill);
     mrbc_define_method(0, mrbc_class_object, "gpio_init_output", c_gpio_init_output);
     mrbc_define_method(0, mrbc_class_object, "gpio_set_level", c_gpio_set_level);
     
