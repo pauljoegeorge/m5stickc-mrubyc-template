@@ -14,7 +14,6 @@ static int button_b_flag = 0;
 void c_button_a_pressed(mrb_vm *vm, mrb_value *v, int argc) {
   if(button_a_flag == 1) {
     button_a_flag = 0;
-    TFT_fillRect(0, 30, 160, 100, TFT_RED);
     SET_TRUE_RETURN();
     return;
   }
@@ -23,7 +22,6 @@ void c_button_a_pressed(mrb_vm *vm, mrb_value *v, int argc) {
 
 void c_button_b_pressed(mrb_vm *vm, mrb_value *v, int argc) {
   if(button_b_flag == 1){
-    TFT_fillRect(0, 30, 160, 100, TFT_GREEN);
     button_b_flag = 0;
     SET_TRUE_RETURN();
     return;
