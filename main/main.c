@@ -12,6 +12,7 @@
 #include "mrubyc.h"
 #include "models/greet.h"
 #include "loops/master.h"
+#include "models/speaker.h"
 
 #define MEMORY_SIZE (1024*40)
 
@@ -51,6 +52,18 @@ static void c_debugprint(struct VM *vm, mrbc_value v[], int argc){
   console_putchar('\n');
 }
 
+static void c_gpio_init_output(mrb_vm *vm, mrb_value *v, int argc) {
+  int pin = GET_INT_ARG(1);
+  console_printf("init pin %d\n", pin);
+  gpio_set_direction(pin, GPIO_MODE_OUTPUT);
+}
+
+static void c_gpio_set_level(mrb_vm *vm, mrb_value *v, int argc){
+  int pin = GET_INT_ARG(1);
+  int level = GET_INT_ARG(2);
+  gpio_set_level(pin, level);
+}
+
 void app_main(void)
 {
   // FOR DISPLAY >>>M5 StickC<<<
@@ -71,7 +84,12 @@ void app_main(void)
     nvs_flash_init();
     mrbc_init(memory_pool, MEMORY_SIZE);
     mrbc_define_method(0, mrbc_class_object, "debugprint", c_debugprint);
+    
+    mrbc_define_method(0, mrbc_class_object, "gpio_init_output", c_gpio_init_output);
+    mrbc_define_method(0, mrbc_class_object, "gpio_set_level", c_gpio_set_level);
+    
     mrbc_create_task(greet, 0);
+    mrbc_create_task(speaker, 0);
     mrbc_create_task(master, 0);
     mrbc_run();
 
