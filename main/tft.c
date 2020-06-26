@@ -27,3 +27,11 @@ void c_tft_fill(mrb_vm *vm, mrb_value *v, int argc) {
   // TODO: more colors to be added
   TFT_fillRect(x, y, w, h, bg_color);
 }
+
+void c_tft_print(mrb_vm *vm, mrb_value *v, int argc) {
+  int x = GET_INT_ARG(1);
+  int y = GET_INT_ARG(2);
+  unsigned char *input = GET_STRING_ARG(3);
+  char* str = (char *) input;
+  TFT_print(str, x, y);
+}

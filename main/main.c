@@ -86,13 +86,14 @@ void app_main(void)
     esp_event_handler_register_with(event_loop, BUTTON_B_EVENT_BASE, BUTTON_PRESSED_EVENT, buttonEvent, NULL);
     mrbc_init(memory_pool, MEMORY_SIZE);
     mrbc_define_method(0, mrbc_class_object, "debugprint", c_debugprint);
-    
+
     mrbc_define_method(0, mrbc_class_object, "button_a_pressed?", c_button_a_pressed);
     mrbc_define_method(0, mrbc_class_object, "button_b_pressed?", c_button_b_pressed);
-    mrbc_define_method(0, mrbc_class_object, "puts_color", c_tft_fill);
+    mrbc_define_method(0, mrbc_class_object, "put_color", c_tft_fill);
+    mrbc_define_method(0, mrbc_class_object, "put_string", c_tft_print);
     mrbc_define_method(0, mrbc_class_object, "gpio_init_output", c_gpio_init_output);
     mrbc_define_method(0, mrbc_class_object, "gpio_set_level", c_gpio_set_level);
-    
+
     mrbc_create_task(greet, 0);
     mrbc_create_task(speaker, 0);
     mrbc_create_task(master, 0);
