@@ -89,8 +89,8 @@ void app_main(void)
 
     mrbc_define_method(0, mrbc_class_object, "button_a_pressed?", c_button_a_pressed);
     mrbc_define_method(0, mrbc_class_object, "button_b_pressed?", c_button_b_pressed);
-    mrbc_define_method(0, mrbc_class_object, "puts_color", c_tft_fill);
-    mrbc_define_method(0, mrbc_class_object, "puts_screen", c_tft_print);
+    mrbc_define_method(0, mrbc_class_object, "put_color", c_tft_fill);
+    mrbc_define_method(0, mrbc_class_object, "put_string", c_tft_print);
     mrbc_define_method(0, mrbc_class_object, "gpio_init_output", c_gpio_init_output);
     mrbc_define_method(0, mrbc_class_object, "gpio_set_level", c_gpio_set_level);
 
