@@ -338,7 +338,7 @@ void example_exec_write_event_env(prepare_type_env_t *prepare_write_env, esp_ble
     prepare_write_env->prepare_len = 0;
 }
 
-static void notifyChime(char *button_status){
+static void notifyChime(uint8_t *button_status){
     printf("%s\n", button_status);
 }
 
@@ -391,6 +391,8 @@ static void gatts_profile_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_
                 ESP_LOGI(GATTS_TABLE_TAG, "GATT_WRITE_EVT, handle = %d, value len = %d, value :", param->write.handle, param->write.len);
                 esp_log_buffer_hex(GATTS_TABLE_TAG, param->write.value, param->write.len);
                 if(param->write.handle == 42){
+                    uint16_t descr_value = param->write.value[1]<<8 | param->write.value[0];
+                    printf("%d\n", descr_value);
                     notifyChime(param->write.value);
                 }
                 /* send response when param->write.need_rsp is true*/
