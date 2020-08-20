@@ -338,7 +338,7 @@ void example_exec_write_event_env(prepare_type_env_t *prepare_write_env, esp_ble
     prepare_write_env->prepare_len = 0;
 }
 
-static void notifyChime(char* button_status){
+static void notifyChime(char *button_status){
     printf("%s\n", button_status);
 }
 
