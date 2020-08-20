@@ -339,7 +339,7 @@ void example_exec_write_event_env(prepare_type_env_t *prepare_write_env, esp_ble
 }
 
 static void notifyChime(uint16_t button_pressed){
-    if(button_status == 1) {
+    if(button_pressed == 1) {
         printf("%s\n", "TADA");
     }else{
         printf("%s\n", "OOPS");
