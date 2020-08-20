@@ -11,8 +11,10 @@
 #include "AXP192.h"
 #include "mrubyc.h"
 #include "button.h"
+#include "ble.h"
 #include "tft.h"
 #include "models/greet.h"
+#include "models/ble.h"
 #include "loops/master.h"
 #include "models/speaker.h"
 
@@ -93,9 +95,12 @@ void app_main(void)
     mrbc_define_method(0, mrbc_class_object, "put_string", c_tft_print);
     mrbc_define_method(0, mrbc_class_object, "gpio_init_output", c_gpio_init_output);
     mrbc_define_method(0, mrbc_class_object, "gpio_set_level", c_gpio_set_level);
+    mrbc_define_method(0, mrbc_class_object, "ble_initialize", c_ble_initialize);
+    mrbc_define_method(0, mrbc_class_object, "ble_start_advertising", c_ble_start_advertising);
 
     mrbc_create_task(greet, 0);
     mrbc_create_task(speaker, 0);
+    mrbc_create_task(ble, 0);
     mrbc_create_task(master, 0);
     mrbc_run();
 
