@@ -52,6 +52,7 @@
 static int bell_pushed = 0;
 static int ble_paired = 0;
 static uint8_t adv_config_done       = 0;
+static uint16_t profile_id = 0;
 
 uint16_t heart_rate_handle_table[HRS_IDX_NB];
 
@@ -430,6 +431,7 @@ static void gatts_profile_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_
             ESP_LOGI(GATTS_TABLE_TAG, "ESP_GATTS_CONNECT_EVT, conn_id = %d", param->connect.conn_id);
             esp_log_buffer_hex(GATTS_TABLE_TAG, param->connect.remote_bda, 6);
             esp_ble_conn_update_params_t conn_params = {0};
+            profile_id = param->connect.remote_bda;
             memcpy(conn_params.bda, param->connect.remote_bda, sizeof(esp_bd_addr_t));
             /* For the iOS system, please refer to Apple official documents about the BLE connection parameters restrictions. */
             conn_params.latency = 0;
@@ -562,9 +564,9 @@ void c_ble_start_advertising(mrb_vm *vm, mrb_value *v, int argc) {
 void c_chime_rang(mrb_vm *vm, mrb_value *v, int argc){
     if(ble_paired == 1){
         if(bell_pushed == 1){
-           bell_pushed = 0;
+            bell_pushed = 0;
+            esp_ble_gap_disconnect(profile_id);
             SET_TRUE_RETURN();
-            esp_ble_gap_disconnect(heart_rate_profile_tab[PROFILE_APP_IDX].remote_bda)
             return; 
         }
     }
