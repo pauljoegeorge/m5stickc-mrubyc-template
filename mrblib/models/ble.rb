@@ -1,6 +1,8 @@
 class Ble
 	def initialize
-		ble_initialize()
-		ble_start_advertising()
+		if !ble_paired?
+			ble_initialize
+			ble_start_advertising
+		end
 	end
 end

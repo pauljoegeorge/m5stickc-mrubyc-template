@@ -11,5 +11,9 @@ while true
     put_color(0, 30, 160, 100, "GREEN");
     put_string(60, 60, "BUTTON B");
   end
+  if(chime_rang?)
+    put_color(0, 30, 160, 100, "BLUE");
+    put_string(60, 60, "CHIME !!");
+  end
   sleep 0.3
 end

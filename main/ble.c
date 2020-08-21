@@ -48,6 +48,8 @@
 
 #define ADV_CONFIG_FLAG             (1 << 0)
 #define SCAN_RSP_CONFIG_FLAG        (1 << 1)
+#define BELL_PUSHED                   0
+#define BLE_PAIRED                0
 
 static uint8_t adv_config_done       = 0;
 
@@ -340,9 +342,10 @@ void example_exec_write_event_env(prepare_type_env_t *prepare_write_env, esp_ble
 
 static void notifyChime(uint16_t button_pressed){
     if(button_pressed == 1) {
-        printf("%s\n", "TADA");
-    }else{
-        printf("%s\n", "OOPS");
+        BELL_PUSHED = 1;
+    }
+    if(button_pressed == 0){
+        BELL_PUSHED = 0;
     }
     printf("%d\n", button_pressed);
 }
@@ -436,6 +439,7 @@ static void gatts_profile_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_
             esp_ble_gap_update_conn_params(&conn_params);
             break;
         case ESP_GATTS_DISCONNECT_EVT:
+            BLE_PAIRED = 0;
             ESP_LOGI(GATTS_TABLE_TAG, "ESP_GATTS_DISCONNECT_EVT, reason = 0x%x", param->disconnect.reason);
             esp_ble_gap_start_advertising(&adv_params);
             break;
@@ -474,6 +478,7 @@ static void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_
     /* If event is register event, store the gatts_if for each profile */
     if (event == ESP_GATTS_REG_EVT) {
         if (param->reg.status == ESP_GATT_OK) {
+            BLE_PAIRED = 1;
             heart_rate_profile_tab[PROFILE_APP_IDX].gatts_if = gatts_if;
         } else {
             ESP_LOGE(GATTS_TABLE_TAG, "reg app failed, app_id %04x, status %d",
@@ -553,7 +558,24 @@ void c_ble_start_advertising(mrb_vm *vm, mrb_value *v, int argc) {
     
 }
 
+void c_chime_rang(mrb_vm *vm, mrb_value *v, int argc){
+    if(BLE_PAIRED == 1){
+        if(BELL_PUSHED == 1){
+           BELL_PUSHED = 0;
+            SET_TRUE_RETURN();
+            return; 
+        }
+    }
+    SET_FALSE_RETURN();
+}
 
+void c_pairing_status(mrb_vm *vm, mrb_value *v, int argc){
+    if(BLE_PAIRED == 1){
+        SET_TRUE_RETURN();
+        return;
+    }
+    SET_FALSE_RETURN();
+}
 // void app_main(void)
 // {
 //     esp_err_t ret;
