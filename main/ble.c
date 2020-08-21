@@ -147,6 +147,7 @@ struct gatts_profile_inst {
     esp_gatt_char_prop_t property;
     uint16_t descr_handle;
     esp_bt_uuid_t descr_uuid;
+    esp_bd_addr_t remote_bda;
 };
 
 static void gatts_profile_event_handler(esp_gatts_cb_event_t event,
@@ -563,6 +564,7 @@ void c_chime_rang(mrb_vm *vm, mrb_value *v, int argc){
         if(bell_pushed == 1){
            bell_pushed = 0;
             SET_TRUE_RETURN();
+            esp_ble_gap_disconnect(heart_rate_profile_tab[PROFILE_APP_IDX].remote_bda)
             return; 
         }
     }
