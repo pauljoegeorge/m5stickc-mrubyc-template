@@ -97,7 +97,7 @@ void app_main(void)
     mrbc_define_method(0, mrbc_class_object, "gpio_set_level", c_gpio_set_level);
     mrbc_define_method(0, mrbc_class_object, "ble_initialize", c_ble_initialize);
     mrbc_define_method(0, mrbc_class_object, "ble_start_advertising", c_ble_start_advertising);
-    mrbc_define_method(0, mrbc_class_object, "chime_rang?", c_chime_rang);
+    mrbc_define_method(0, mrbc_class_object, "ble_chime_rang?", c_chime_rang);
     mrbc_define_method(0, mrbc_class_object, "ble_paired?", c_pairing_status);
 
 
