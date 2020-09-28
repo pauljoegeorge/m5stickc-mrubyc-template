@@ -462,6 +462,7 @@ void c_ble_initialize(mrb_vm *vm, mrb_value *v, int argc) {
 }
 
 void c_ble_start_scanning(mrb_vm *vm, mrb_value *v, int argc) {
+    esp_err_t ret;
     //register the  callback function to the gap module
     ret = esp_ble_gap_register_callback(esp_gap_cb);
     if (ret){
