@@ -188,7 +188,7 @@ static const esp_gatts_attr_db_t gatt_db[HRS_IDX_NB] =
     /* Characteristic Declaration */
     [IDX_CHAR_A]     =
     {{ESP_GATT_AUTO_RSP}, {ESP_UUID_LEN_16, (uint8_t *)&character_declaration_uuid, ESP_GATT_PERM_READ,
-      CHAR_DECLARATION_SIZE, CHAR_DECLARATION_SIZE, (uint8_t *)&char_prop_read_write_notify}}
+      CHAR_DECLARATION_SIZE, CHAR_DECLARATION_SIZE, (uint8_t *)&char_prop_read_write_notify}},
 
     /* Characteristic Value */
     [IDX_CHAR_VAL_A] =

@@ -17,6 +17,6 @@ enum
     IDX_SVC,
     IDX_CHAR_A,
     IDX_CHAR_VAL_A,
-
+	IDX_CHIME_MEAS_NTF_CFG,
     HRS_IDX_NB,
 };
