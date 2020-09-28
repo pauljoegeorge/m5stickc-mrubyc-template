@@ -16,6 +16,7 @@ while true
 
   if ble.paired?
     puts "paired.."
+    send_chime_notification
   end
-  sleep 0.3
+  sleep 3
 end

@@ -41,7 +41,7 @@
 #define PROFILE_A_APP_ID 0
 #define INVALID_HANDLE   0
 
-static const char remote_device_name[] = "ESP_GATTS_DEMO";
+static const char remote_device_name[] = "ESP_DOOR_CHIME";
 static bool connect    = false;
 static bool get_server = false;
 static esp_gattc_char_elem_t *char_elem_result   = NULL;
@@ -493,6 +493,19 @@ void c_pairing_status(mrb_vm *vm, mrb_value *v, int argc){
         return;
     }
     SET_FALSE_RETURN();
+}
+
+void c_send_chime_notification(mrb_vm *vm, mrb_value *v, int argc){
+    if(connect == true){
+        uint8_t notify_en = 1;
+        esp_ble_gattc_write_char_descr( gl_profile_tab[PROFILE_A_APP_ID].gattc_if,
+                                  gl_profile_tab[PROFILE_A_APP_ID].conn_id,
+                                  gl_profile_tab[PROFILE_A_APP_ID].char_handle,
+                                  sizeof(notify_en),
+                                  (uint8_t *)&notify_en,,
+                                  ESP_GATT_WRITE_TYPE_RSP,
+                                  ESP_GATT_AUTH_REQ_NONE);
+    }
 } 
 
 

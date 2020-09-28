@@ -14,9 +14,9 @@
 #include "button.h"
 #include "tft.h"
 #include "models/greet.h"
-#include "loops/master.h"
 #include "models/ble_client.h"
 #include "models/speaker.h"
+#include "loops/master.h"
 
 #define MEMORY_SIZE (1024*40)
 
@@ -98,11 +98,12 @@ void app_main(void)
     mrbc_define_method(0, mrbc_class_object, "ble_initialize", c_ble_initialize);
     mrbc_define_method(0, mrbc_class_object, "ble_start_scanning", c_ble_start_scanning);
     mrbc_define_method(0, mrbc_class_object, "ble_paired?", c_pairing_status);
+    mrbc_define_method(0, mrbc_class_object, "send_chime_notification", c_send_chime_notification);
 
     mrbc_create_task(greet, 0);
     mrbc_create_task(speaker, 0);
-    mrbc_create_task(master, 0);
     mrbc_create_task(ble_client, 0);
+    mrbc_create_task(master, 0);
     mrbc_run();
 
 }

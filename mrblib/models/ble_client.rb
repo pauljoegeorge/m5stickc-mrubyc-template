@@ -9,4 +9,8 @@ class BleClient
 	def paired?
 		ble_paired?
 	end
+
+	def press_chime
+		send_chime_notification
+	end
 end
