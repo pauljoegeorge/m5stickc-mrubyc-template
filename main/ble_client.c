@@ -502,7 +502,7 @@ void c_send_chime_notification(mrb_vm *vm, mrb_value *v, int argc){
                                   gl_profile_tab[PROFILE_A_APP_ID].conn_id,
                                   gl_profile_tab[PROFILE_A_APP_ID].char_handle,
                                   sizeof(notify_en),
-                                  (uint8_t *)&notify_en,,
+                                  (uint8_t *)&notify_en,
                                   ESP_GATT_WRITE_TYPE_RSP,
                                   ESP_GATT_AUTH_REQ_NONE);
     }
