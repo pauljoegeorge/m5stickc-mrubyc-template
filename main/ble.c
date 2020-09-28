@@ -537,12 +537,15 @@ void c_ble_start_advertising(mrb_vm *vm, mrb_value *v, int argc) {
 void c_chime_rang(mrb_vm *vm, mrb_value *v, int argc){
     if(ble_paired == 1){
         if(bell_pushed == 1){
-            bell_pushed = 0;
             SET_TRUE_RETURN();
             return; 
         }
     }
     SET_FALSE_RETURN();
+}
+
+void c_reset_chime_rang(mrb_vm *vm, mrb_value *v, int argc){
+    bell_pushed = 0;
 }
 
 void c_pairing_status(mrb_vm *vm, mrb_value *v, int argc){

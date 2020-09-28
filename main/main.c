@@ -99,7 +99,7 @@ void app_main(void)
     mrbc_define_method(0, mrbc_class_object, "ble_start_advertising", c_ble_start_advertising);
     mrbc_define_method(0, mrbc_class_object, "ble_chime_rang?", c_chime_rang);
     mrbc_define_method(0, mrbc_class_object, "ble_paired?", c_pairing_status);
-
+    mrbc_define_method(0, mrbc_class_object, "ble_set_signal_low", c_reset_chime_rang);
 
     mrbc_create_task(greet, 0);
     mrbc_create_task(speaker, 0);
