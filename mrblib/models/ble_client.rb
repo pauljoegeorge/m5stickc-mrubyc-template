@@ -2,7 +2,7 @@ class BleClient
 	def initialize
 		if !ble_paired?
 			ble_initialize
-			ble_start_scanning
+			ble_init_scanning
 		end
 	end	
 
@@ -10,7 +10,11 @@ class BleClient
 		ble_paired?
 	end
 
-	def press_chime
-		send_chime_notification
+	def restart_scanning
+		ble_restart_scanning
+	end
+
+	def disconnect
+		ble_disconnect
 	end
 end

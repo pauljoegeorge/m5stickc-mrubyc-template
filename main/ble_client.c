@@ -487,6 +487,13 @@ void c_ble_start_scanning(mrb_vm *vm, mrb_value *v, int argc) {
     }
 }
 
+void c_restart_scanning(mrb_vm *vm, mrb_value *v, int argc){
+    if(connect == false){
+        uint32_t duration = 30;
+        esp_ble_gap_start_scanning(duration);
+    }
+}
+
 void c_pairing_status(mrb_vm *vm, mrb_value *v, int argc){
     if(connect == true){
         SET_TRUE_RETURN();
@@ -509,6 +516,12 @@ void c_send_chime_notification(mrb_vm *vm, mrb_value *v, int argc){
 } 
 
 
+void c_ble_disconnect(mrb_vm *vm, mrb_value *v, int argc){
+    if(connect == true){
+        ESP_LOGI(GATTC_TAG, "Disconnecting Bluetooth");
+        esp_ble_gap_disconnect(gl_profile_tab[PROFILE_A_APP_ID].remote_bda);
+    }
+}
 // void app_main(void)
 // {
     // Initialize NVS.
