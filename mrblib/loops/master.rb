@@ -10,7 +10,13 @@ while true
   if button_b_pressed?
     puts "Button B pressed"
     put_color(0, 30, 160, 100, "GREEN");
-    put_string(60, 60, "BUTTON B");
+    if ble.paired?
+      ble.stop_advertising
+      put_string(60, 60, "STOP ADV.");
+    else
+      ble.restart_advertising
+      put_string(60, 60, "START ADV.");
+    end
   end
   if ble.paired?
     if  ble.chime_rang?

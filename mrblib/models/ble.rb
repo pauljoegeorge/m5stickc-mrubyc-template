@@ -17,4 +17,12 @@ class Ble
 	def reset_chime
 		ble_set_signal_low
 	end
+
+	def stop_advertising
+		ble_stop_advertising
+	end
+
+	def restart_advertising
+		ble_restart_advertising
+	end
 end
