@@ -11,8 +11,10 @@ class Ble
 	end
 
 	def chime_rang?
-		status = ble_chime_rang?
+		ble_chime_rang?
+	end
+
+	def reset_chime
 		ble_set_signal_low
-		status
 	end
 end

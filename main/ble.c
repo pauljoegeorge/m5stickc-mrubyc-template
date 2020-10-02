@@ -324,11 +324,8 @@ void example_exec_write_event_env(prepare_type_env_t *prepare_write_env, esp_ble
 static void notifyChime(uint16_t button_pressed){
     if(button_pressed == 1) {
         bell_pushed = 1;
+        printf("TING TONG !! %d\n", button_pressed);
     }
-    if(button_pressed == 0){
-        bell_pushed = 0;
-    }
-    printf("%d\n", button_pressed);
 }
 
 static void gatts_profile_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if, esp_ble_gatts_cb_param_t *param)
@@ -460,7 +457,6 @@ static void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_
     /* If event is register event, store the gatts_if for each profile */
     if (event == ESP_GATTS_REG_EVT) {
         if (param->reg.status == ESP_GATT_OK) {
-            ble_paired = 1;
             heart_rate_profile_tab[PROFILE_APP_IDX].gatts_if = gatts_if;
         } else {
             ESP_LOGE(GATTS_TABLE_TAG, "reg app failed, app_id %04x, status %d",

@@ -16,6 +16,8 @@ while true
     if  ble.chime_rang?
       put_color(0, 30, 160, 100, "BLUE")
       put_string(60, 60, "CHIME !!")
+      sleep(1)
+      ble.reset_chime
     end
   end
   sleep 0.3
