@@ -233,15 +233,15 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
                         ESP_LOGE(GATTC_TAG, "esp_ble_gattc_get_descr_by_char_handle error");
                     }
                     /* Every char has only one descriptor in our 'ESP_GATTS_DEMO' demo, so we used first 'descr_elem_result' */
-                    if (count > 0 && descr_elem_result[0].uuid.len == ESP_UUID_LEN_16 && descr_elem_result[0].uuid.uuid.uuid16 == ESP_GATT_UUID_CHAR_CLIENT_CONFIG){
-                        ret_status = esp_ble_gattc_write_char_descr( gattc_if,
-                                                                     gl_profile_tab[PROFILE_A_APP_ID].conn_id,
-                                                                     descr_elem_result[0].handle,
-                                                                     sizeof(notify_en),
-                                                                     (uint8_t *)&notify_en,
-                                                                     ESP_GATT_WRITE_TYPE_RSP,
-                                                                     ESP_GATT_AUTH_REQ_NONE);
-                    }
+                    // if (count > 0 && descr_elem_result[0].uuid.len == ESP_UUID_LEN_16 && descr_elem_result[0].uuid.uuid.uuid16 == ESP_GATT_UUID_CHAR_CLIENT_CONFIG){
+                    //     ret_status = esp_ble_gattc_write_char_descr( gattc_if,
+                    //                                                  gl_profile_tab[PROFILE_A_APP_ID].conn_id,
+                    //                                                  descr_elem_result[0].handle,
+                    //                                                  sizeof(notify_en),
+                    //                                                  (uint8_t *)&notify_en,
+                    //                                                  ESP_GATT_WRITE_TYPE_RSP,
+                    //                                                  ESP_GATT_AUTH_REQ_NONE);
+                    // }
 
                     if (ret_status != ESP_GATT_OK){
                         ESP_LOGE(GATTC_TAG, "esp_ble_gattc_write_char_descr error");
