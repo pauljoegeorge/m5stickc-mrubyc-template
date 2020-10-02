@@ -11,7 +11,7 @@ class BleClient
 	end
 
 	def restart_scanning
-		ble_restart_scanning
+		ble_restart_scanning # 5 seconds
 	end
 
 	def disconnect

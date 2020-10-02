@@ -97,7 +97,7 @@ void app_main(void)
     mrbc_define_method(0, mrbc_class_object, "gpio_set_level", c_gpio_set_level);
     mrbc_define_method(0, mrbc_class_object, "ble_initialize", c_ble_initialize);
     mrbc_define_method(0, mrbc_class_object, "ble_init_scanning", c_ble_start_scanning);
-    mrbc_define_method(0, mrbc_class_object, "restart_scanning", c_restart_scanning);
+    mrbc_define_method(0, mrbc_class_object, "ble_restart_scanning", c_restart_scanning);
     mrbc_define_method(0, mrbc_class_object, "ble_paired?", c_pairing_status);
     mrbc_define_method(0, mrbc_class_object, "send_chime_notification", c_send_chime_notification);
     mrbc_define_method(0, mrbc_class_object, "ble_disconnect", c_ble_disconnect);

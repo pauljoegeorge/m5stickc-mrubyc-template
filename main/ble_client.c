@@ -31,6 +31,7 @@
 #include "esp_gatt_common_api.h"
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 #include "mrubyc.h"
 
@@ -316,8 +317,11 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
     switch (event) {
     case ESP_GAP_BLE_SCAN_PARAM_SET_COMPLETE_EVT: {
         //the unit of the duration is second
-        uint32_t duration = 30;
+        uint32_t duration = 5;
         esp_ble_gap_start_scanning(duration);
+        vTaskDelay(100 / portTICK_PERIOD_MS);
+        esp_ble_gap_start_scanning(duration);
+        vTaskDelay(100 / portTICK_PERIOD_MS);
         break;
     }
     case ESP_GAP_BLE_SCAN_START_COMPLETE_EVT:
@@ -489,8 +493,12 @@ void c_ble_start_scanning(mrb_vm *vm, mrb_value *v, int argc) {
 
 void c_restart_scanning(mrb_vm *vm, mrb_value *v, int argc){
     if(connect == false){
-        uint32_t duration = 30;
+        esp_ble_gap_stop_scanning();
+        uint32_t duration = 5;
         esp_ble_gap_start_scanning(duration);
+        vTaskDelay(100 / portTICK_PERIOD_MS);
+        esp_ble_gap_start_scanning(duration);
+        vTaskDelay(100 / portTICK_PERIOD_MS);
     }
 }
 
