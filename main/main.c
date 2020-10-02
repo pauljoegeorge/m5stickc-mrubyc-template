@@ -100,6 +100,8 @@ void app_main(void)
     mrbc_define_method(0, mrbc_class_object, "ble_chime_rang?", c_chime_rang);
     mrbc_define_method(0, mrbc_class_object, "ble_paired?", c_pairing_status);
     mrbc_define_method(0, mrbc_class_object, "ble_set_signal_low", c_reset_chime_rang);
+    mrbc_define_method(0, mrbc_class_object, "ble_stop_advertising", c_ble_stop_advertising);
+    mrbc_define_method(0, mrbc_class_object, "ble_restart_advertising", c_ble_restart_advertising);
 
     mrbc_create_task(greet, 0);
     mrbc_create_task(speaker, 0);

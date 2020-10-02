@@ -509,6 +509,20 @@ void c_ble_initialize(mrb_vm *vm, mrb_value *v, int argc) {
 
 }
 
+void c_ble_stop_advertising(mrb_vm *vm, mrb_value *v, int argc){
+    // stop first
+    esp_ble_gap_stop_advertising();
+}
+
+void c_ble_restart_advertising(mrb_vm *vm, mrb_value *v, int argc){
+    // restart
+    adv_config_done &= (~ADV_CONFIG_FLAG);
+    if (adv_config_done == 0){
+        esp_ble_gap_start_advertising(&adv_params);
+    }
+
+}
+
 void c_ble_start_advertising(mrb_vm *vm, mrb_value *v, int argc) {
    esp_err_t ret;
    ret = esp_ble_gatts_register_callback(gatts_event_handler);
