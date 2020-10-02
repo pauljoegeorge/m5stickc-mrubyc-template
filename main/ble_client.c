@@ -317,9 +317,7 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
     switch (event) {
     case ESP_GAP_BLE_SCAN_PARAM_SET_COMPLETE_EVT: {
         //the unit of the duration is second
-        uint32_t duration = 5;
-        esp_ble_gap_start_scanning(duration);
-        vTaskDelay(100 / portTICK_PERIOD_MS);
+        uint32_t duration = 0;
         esp_ble_gap_start_scanning(duration);
         vTaskDelay(100 / portTICK_PERIOD_MS);
         break;
@@ -369,6 +367,7 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
             }
             break;
         case ESP_GAP_SEARCH_INQ_CMPL_EVT:
+            ESP_LOGI(GATTC_TAG, "searched completed");
             break;
         default:
             break;
@@ -494,9 +493,7 @@ void c_ble_start_scanning(mrb_vm *vm, mrb_value *v, int argc) {
 void c_restart_scanning(mrb_vm *vm, mrb_value *v, int argc){
     if(connect == false){
         esp_ble_gap_stop_scanning();
-        uint32_t duration = 5;
-        esp_ble_gap_start_scanning(duration);
-        vTaskDelay(100 / portTICK_PERIOD_MS);
+        uint32_t duration = 0;
         esp_ble_gap_start_scanning(duration);
         vTaskDelay(100 / portTICK_PERIOD_MS);
     }
