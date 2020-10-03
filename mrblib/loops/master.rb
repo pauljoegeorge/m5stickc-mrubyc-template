@@ -38,7 +38,7 @@ while true
     if ble.scanning?
       put_string(60, 60, "Pairing...")
     else
-      put_string(60, 60, "Disconnected..")
+      put_string(60, 60, "Scan finish")
     end
   end
 
