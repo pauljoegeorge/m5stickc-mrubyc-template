@@ -23,7 +23,7 @@ while true
       put_color(0, 30, 160, 100, "BLUE")
       put_string(60, 60, "CHIME !!")
       sleep(1)
-      ble.reset_chime
+      ble.reset_chime  # mandatory
     end
   else
     if !(button_a_pressed? && button_b_pressed?) && ble.advertising?
