@@ -3,6 +3,7 @@ class BleClient
 		if !ble_paired?
 			ble_initialize
 			ble_init_scanning
+			@scanning = true
 		end
 	end	
 
@@ -16,5 +17,13 @@ class BleClient
 
 	def disconnect
 		ble_disconnect
+	end
+
+	def scanning(status)
+		@scanning = status
+	end
+
+	def scanning?
+		@scanning
 	end
 end
