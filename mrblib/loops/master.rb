@@ -22,7 +22,7 @@ while true
     if  ble.chime_rang?
       put_color(0, 30, 160, 100, "BLUE")
       put_string(60, 60, "CHIME !!")
-      sleep(1)
+      sleep(3)
       ble.reset_chime  # mandatory
     else
       if !(button_a_pressed? && button_b_pressed?) && ble.advertising?

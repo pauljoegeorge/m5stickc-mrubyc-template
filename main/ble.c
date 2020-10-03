@@ -425,7 +425,7 @@ static void gatts_profile_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_
             ble_paired = 0;
             ESP_LOGI(GATTS_TABLE_TAG, "ESP_GATTS_DISCONNECT_EVT, reason = 0x%x", param->disconnect.reason);
             // restart adv when client disconnects
-            if(param->disconnect.reason == 19){
+            if(param->disconnect.reason != 22){
                 esp_ble_gap_start_advertising(&adv_params);
             }
             break;
