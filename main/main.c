@@ -101,6 +101,7 @@ void app_main(void)
     mrbc_define_method(0, mrbc_class_object, "ble_paired?", c_pairing_status);
     mrbc_define_method(0, mrbc_class_object, "send_chime_notification", c_send_chime_notification);
     mrbc_define_method(0, mrbc_class_object, "ble_disconnect", c_ble_disconnect);
+    mrbc_define_method(0, mrbc_class_object, "ble_scanning?", c_scanning_status);
 
     mrbc_create_task(greet, 0);
     mrbc_create_task(speaker, 0);

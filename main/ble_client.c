@@ -43,6 +43,7 @@
 #define INVALID_HANDLE   0
 
 static const char remote_device_name[] = "ESP_DOOR_CHIME";
+static int scanning = 0;
 static bool connect    = false;
 static bool get_server = false;
 static esp_gattc_char_elem_t *char_elem_result   = NULL;
@@ -303,6 +304,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
     case ESP_GATTC_DISCONNECT_EVT:
         connect = false;
         get_server = false;
+        scanning = 0;
         ESP_LOGI(GATTC_TAG, "ESP_GATTC_DISCONNECT_EVT, reason = %d", p_data->disconnect.reason);
         break;
     default:
@@ -320,6 +322,7 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
         uint32_t duration = 0;
         esp_ble_gap_start_scanning(duration);
         vTaskDelay(100 / portTICK_PERIOD_MS);
+        scanning = 1;
         break;
     }
     case ESP_GAP_BLE_SCAN_START_COMPLETE_EVT:
@@ -361,6 +364,7 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
                         connect = true;
                         ESP_LOGI(GATTC_TAG, "connect to the remote device.");
                         esp_ble_gap_stop_scanning();
+                        scanning = 0;
                         esp_ble_gattc_open(gl_profile_tab[PROFILE_A_APP_ID].gattc_if, scan_result->scan_rst.bda, scan_result->scan_rst.ble_addr_type, true);
                     }
                 }
@@ -496,11 +500,20 @@ void c_restart_scanning(mrb_vm *vm, mrb_value *v, int argc){
         uint32_t duration = 0;
         esp_ble_gap_start_scanning(duration);
         vTaskDelay(100 / portTICK_PERIOD_MS);
+        scanning = 1;
     }
 }
 
 void c_pairing_status(mrb_vm *vm, mrb_value *v, int argc){
     if(connect == true){
+        SET_TRUE_RETURN();
+        return;
+    }
+    SET_FALSE_RETURN();
+}
+
+void c_scanning_status(mrb_vm *vm, mrb_value *v, int argc){
+    if(scanning == 1){
         SET_TRUE_RETURN();
         return;
     }

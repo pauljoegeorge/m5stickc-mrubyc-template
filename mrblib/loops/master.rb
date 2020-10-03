@@ -21,21 +21,19 @@ while true
     if ble.paired?
       ble.disconnect
       put_string(60, 60, "Disconnected..")
-      ble.scanning(false)
     else
       ble.restart_scanning # for 10 seconds
       put_string(60, 60, "Pairing..")
-      ble.scanning(true)
     end
   end
 
-  if !(button_a_pressed? && button_b_pressed?) && ble.paired?
+  if !button_a_pressed? && !button_b_pressed? && ble.paired?
     put_color(0, 30, 160, 100, "RED")
     put_string(60, 60, "Paired..")
   end
 
 
-  if !(button_a_pressed? && button_b_pressed? && ble.paired?)
+  if !button_a_pressed? && !button_b_pressed? !ble.paired?
     put_color(0, 30, 160, 100, "RED");
     if ble.scanning?
       put_string(60, 60, "Pairing...")
