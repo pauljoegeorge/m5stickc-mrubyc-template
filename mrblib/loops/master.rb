@@ -33,7 +33,7 @@ while true
   end
 
 
-  if !button_a_pressed? && !button_b_pressed? !ble.paired?
+  if !button_a_pressed? && !button_b_pressed? && !ble.paired?
     put_color(0, 30, 160, 100, "RED");
     if ble.scanning?
       put_string(60, 60, "Pairing...")
