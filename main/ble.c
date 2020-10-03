@@ -424,7 +424,7 @@ static void gatts_profile_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_
         case ESP_GATTS_DISCONNECT_EVT:
             ble_paired = 0;
             ESP_LOGI(GATTS_TABLE_TAG, "ESP_GATTS_DISCONNECT_EVT, reason = 0x%x", param->disconnect.reason);
-            esp_ble_gap_start_advertising(&adv_params);
+            // esp_ble_gap_start_advertising(&adv_params);
             break;
         case ESP_GATTS_CREAT_ATTR_TAB_EVT:{
             if (param->add_attr_tab.status != ESP_GATT_OK){
@@ -514,9 +514,10 @@ void c_ble_initialize(mrb_vm *vm, mrb_value *v, int argc) {
 }
 
 void c_ble_stop_advertising(mrb_vm *vm, mrb_value *v, int argc){
-    // stop first
+    // disconnect and stop adv
     esp_ble_gap_disconnect(heart_rate_profile_tab[PROFILE_APP_IDX].remote_bda);
     esp_ble_gap_stop_advertising();
+    ble_advertising = 0;
 }
 
 void c_ble_restart_advertising(mrb_vm *vm, mrb_value *v, int argc){
