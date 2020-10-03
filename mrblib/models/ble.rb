@@ -25,4 +25,8 @@ class Ble
 	def restart_advertising
 		ble_restart_advertising
 	end
+
+	def advertising?
+		ble_advertising?
+	end
 end
