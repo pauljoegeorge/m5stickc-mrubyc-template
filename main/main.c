@@ -81,7 +81,7 @@ void app_main(void)
     TFT_setFont(SMALL_FONT, NULL);
     TFT_resetclipwin();
 
-    TFT_print(">>>M5 StickC<<<", CENTER, 0);
+    TFT_print(">>>BLE CLIENT<<<", CENTER, 0);
     vTaskDelay(500 / portTICK_PERIOD_MS);
     nvs_flash_init();
     esp_event_handler_register_with(event_loop, BUTTON_A_EVENT_BASE, BUTTON_PRESSED_EVENT, buttonEvent, NULL);
