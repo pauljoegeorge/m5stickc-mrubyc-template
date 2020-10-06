@@ -16,6 +16,9 @@
  - Once connected, whenever button on BLE client is clicked, will see `CHIME!` message displayed on server
  - Click on Button B (button on top) to to stop advertising/start adv
  
+ > BLE server has one application profile to handle our service. service has a Characteristic with READ WRITE NOTIFY permission
+ > BLE client will write to charecteristic value of service under application profile(In our case)
+ 
 
 
 ## Working
