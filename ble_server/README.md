@@ -16,3 +16,20 @@
  - Once connected, whenever button on BLE client is clicked, will see `CHIME!` message displayed on server
  - Click on Button B (button on top) to to stop advertising/start adv
  
+
+
+## Working
+- Flash code to M5StickC
+- Once flashed, M5StickC will enable Bluetooth and start advertising `ESP_DOOR_CHIME`
+- Advertising is forever
+- M5StickC will display message Advertising
+- Once BLE client is connected, M5StickC display message will change from `Advertidsing` to `Paired and Adv.`
+- BLE server has one service and one characteristic `0xFF01`. whenever ble client write `1` (chime notify) to BLE server,  M5StickC will display `CHIME!` on screen. 
+- Use top button (Button B) to stop/restart advertising.
+
+
+## Points to remember
+- Dont forget to send a reset chime signal back to the BLE client once received the notificaiton
+  - https://github.com/pauljoegeorge/m5stickc-mrubyc-template/blob/d7d8a02d6cf6b755a7f35a675d1b9535dd944afa/ble_server/mrblib/loops/master.rb#L26
+  - feel free to move this to model if needed. 
+  
