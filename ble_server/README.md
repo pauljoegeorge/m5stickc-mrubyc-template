@@ -18,7 +18,7 @@
  
 > - BLE server has one Application profile (Its possible to have multiple application profiles, but we are expecting only one M5StickC to be connected) <br>
 > - BLE server has one service handle which has created one charecteristics with `READ WRITE NOTIFY` permission <br>
-> - Once the BLE client is connected to BLE server, if the service UUID and charecteristics ID of BLE service is known, its possible for BLE client to read write and notify to BLE server <br>
+> - Once the BLE client is connected to BLE server, if the service UUID and charecteristics ID of BLE server is known, its possible for BLE client to read write and notify to BLE server <br>
 > - In our case BLE client will connect to BLE server and write `1` when calling bell (BUTTON A ) is pressed. <br>
 
 
