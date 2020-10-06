@@ -16,9 +16,10 @@
  - Once connected, whenever button on BLE client is clicked, will see `CHIME!` message displayed on server
  - Click on Button B (button on top) to to stop advertising/start adv
  
- > BLE server has one application profile to handle our service. service has a Characteristic with READ WRITE NOTIFY permission
- > BLE client will write to charecteristic value of service under application profile(In our case)
- 
+> - BLE server has one Application profile (Its possible to have multiple application profiles, but we are expecting only one M5StickC to be connected) <br>
+> - BLE server has one service handle which has created one charecteristics with `READ WRITE NOTIFY` permission <br>
+> - Once the BLE client is connected to BLE server, if the service UUID and charecteristics ID of BLE service is known, its possible for BLE client to read write and notify to BLE server <br>
+> - In our case BLE client will connect to BLE server and write `1` when calling bell (BUTTON A ) is pressed. <br>
 
 
 ## Working
@@ -27,8 +28,10 @@
 - Advertising is forever
 - M5StickC will display message Advertising
 - Once BLE client is connected, M5StickC display message will change from `Advertidsing` to `Paired and Adv.`
-- BLE server has one service and one characteristic `0xFF01`. whenever ble client write `1` (chime notify) to BLE server,  M5StickC will display `CHIME!` on screen. 
+- BLE server has one Application Profile service and one characteristic `0xFF01`. whenever ble client write `1` (chime notify) to BLE server,  M5StickC will display `CHIME!` on screen. 
 - Use top button (Button B) to stop/restart advertising.
+
+
 
 
 ## Points to remember
