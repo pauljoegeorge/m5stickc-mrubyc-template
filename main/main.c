@@ -7,14 +7,16 @@
 #include "esp_spi_flash.h"
 #include "nvs_flash.h"
 #include "m5stickc.h"
+#include "ble_client.h"
 #include "wire.h"
 #include "AXP192.h"
 #include "mrubyc.h"
 #include "button.h"
 #include "tft.h"
 #include "models/greet.h"
-#include "loops/master.h"
+#include "models/ble_client.h"
 #include "models/speaker.h"
+#include "loops/master.h"
 
 #define MEMORY_SIZE (1024*40)
 
@@ -79,7 +81,7 @@ void app_main(void)
     TFT_setFont(SMALL_FONT, NULL);
     TFT_resetclipwin();
 
-    TFT_print(">>>M5 StickC<<<", CENTER, 0);
+    TFT_print(">>>BLE CLIENT<<<", CENTER, 0);
     vTaskDelay(500 / portTICK_PERIOD_MS);
     nvs_flash_init();
     esp_event_handler_register_with(event_loop, BUTTON_A_EVENT_BASE, BUTTON_PRESSED_EVENT, buttonEvent, NULL);
@@ -93,9 +95,17 @@ void app_main(void)
     mrbc_define_method(0, mrbc_class_object, "put_string", c_tft_print);
     mrbc_define_method(0, mrbc_class_object, "gpio_init_output", c_gpio_init_output);
     mrbc_define_method(0, mrbc_class_object, "gpio_set_level", c_gpio_set_level);
+    mrbc_define_method(0, mrbc_class_object, "ble_initialize", c_ble_initialize);
+    mrbc_define_method(0, mrbc_class_object, "ble_init_scanning", c_ble_start_scanning);
+    mrbc_define_method(0, mrbc_class_object, "ble_restart_scanning", c_restart_scanning);
+    mrbc_define_method(0, mrbc_class_object, "ble_paired?", c_pairing_status);
+    mrbc_define_method(0, mrbc_class_object, "send_chime_notification", c_send_chime_notification);
+    mrbc_define_method(0, mrbc_class_object, "ble_disconnect", c_ble_disconnect);
+    mrbc_define_method(0, mrbc_class_object, "ble_scanning?", c_scanning_status);
 
     mrbc_create_task(greet, 0);
     mrbc_create_task(speaker, 0);
+    mrbc_create_task(ble_client, 0);
     mrbc_create_task(master, 0);
     mrbc_run();
 
